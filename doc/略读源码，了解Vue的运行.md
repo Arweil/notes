@@ -1,5 +1,5 @@
 ### 了解Vue的入口
-Vue使用[rollup](https://rollupjs.org/)构建，入口文件在/src/platforms/web目录下。vue主要包括两个模块[runtime & compiler](https://cn.vuejs.org/v2/guide/installation.html#术语)，本文选用entry-runtime-with-compiler.js作为入口文件。
+Vue使用[rollup](https://rollupjs.org/)构建，入口文件在/src/platforms/web目录下。vue主要包括两个模块[runtime & compiler](https://cn.vuejs.org/v2/guide/installation.html#术语)，本文选用entry-runtime-with-compiler.js作为入口文件。
 
 ### Vue是如何渲染的
 * 创建Vue实例，调用Vue.prototype._init方法进行数据初始化；
