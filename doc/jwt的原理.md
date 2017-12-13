@@ -51,7 +51,7 @@ eyJ0eXBlIjoiand0IiwiYWxnIjoiQmFzZTY0LWhtYWNTSEEyNTYifQ==
 
 ### 作为JWT之后的具体流程
 1. 客户端发出登录请求;
-2. 服务端进行账号密码验证通过后，把JWT通过Response.Headers.Set-Cookie发送给客户端，当然我们可以设置HttpOnly来保证这个cookie的安全性;
+2. 服务端进行账号密码验证通过后，把JWT通过Response.Headers.Set-Cookie发送给客户端，当然我们可以设置HttpOnly来提高这个cookie的安全性;
 3. 客户端接收到cookie后每次发生请求都会携带此cookie；
 4. 服务端接收到请求后验证jwt是否合法，过期。比如：对头部和载荷中的数据进行验证，然后把客户端的头部和载荷重新生成签名和之前的签名比对。
 
