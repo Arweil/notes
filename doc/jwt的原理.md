@@ -49,7 +49,7 @@ eyJ0eXBlIjoiand0IiwiYWxnIjoiQmFzZTY0LWhtYWNTSEEyNTYifQ==
 
 最后再进行一个拼接，组成 **头部.载荷.签名** 这个就是完整的JWT了。
 
-### 作为JWT之后的具体流程
+### 完成JWT之后的具体流程
 1. 客户端发出登录请求;
 2. 服务端进行账号密码验证通过后，把JWT通过Response.Headers.Set-Cookie发送给客户端，当然我们可以设置HttpOnly来提高这个cookie的安全性;
 3. 客户端接收到cookie后每次发生请求都会携带此cookie；
