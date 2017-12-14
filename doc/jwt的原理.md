@@ -3,7 +3,8 @@ jwt (Json Web Token) 是一个规范，用于客户端和服务端传递安全�
 
 ## 首先了解cookie
 1. 服务端通过设置Response.Headers中的Set-Cookie把cookie发送给客户端，其中可以设置HttpOnly保证客户端无法通过脚本访问cookie;
-2. 客户端获取到cookie，在Request.Headers.Cookie中把cookie发送回服务器；每次请求都会发送此cookie。客户端需要设置XMLHttpRequest实例的withCredentials属性为true；
+2. 客户端获取到cookie，在Request.Headers.Cookie中把cookie发送回服务器；
+3. ajax请求会自动带上同源的cookie，不会带上不同源的cookie，需要前端设置withCredentials为ture,后端设置Header的方式让ajax带上不同源的cookie；
 
 ## jwt的组成部分
 jwt主要由3个部分组成，分别为头部，载荷和签名
