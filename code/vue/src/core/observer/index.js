@@ -38,9 +38,11 @@ export class Observer {
 
   constructor (value: any) {
     this.value = value
+    // 创建依赖者
     this.dep = new Dep()
     this.vmCount = 0
     def(value, '__ob__', this)
+    // 为当前的数组重写原型方法
     if (Array.isArray(value)) {
       const augment = hasProto
         ? protoAugment
@@ -67,6 +69,7 @@ export class Observer {
   /**
    * Observe a list of Array items.
    */
+  // 给Array中的每一个项创建observer实例
   observeArray (items: Array<any>) {
     for (let i = 0, l = items.length; i < l; i++) {
       observe(items[i])
@@ -103,6 +106,7 @@ function copyAugment (target: Object, src: Object, keys: Array<string>) {
  * returns the new observer if successfully observed,
  * or the existing observer if the value already has one.
  */
+// 给value创建obsever实例，并返回实例
 export function observe (value: any, asRootData: ?boolean): Observer | void {
   if (!isObject(value)) {
     return
@@ -128,19 +132,16 @@ export function observe (value: any, asRootData: ?boolean): Observer | void {
 /**
  * Define a reactive property on an Object.
  */
-/*
-  $attrs, $listeners
- */
 export function defineReactive (
   obj: Object,
   key: string,
   val: any,
-  customSetter?: ?Function,
-  shallow?: boolean
+  customSetter?: ?Function, // 自定义Setter方法
+  shallow?: boolean // true: 不会给obj创建__ob__  $attr $listeners
 ) {
   const dep = new Dep()
 
-  const property = Object.getOwnPropertyDescriptor(obj, key)
+  const property = Object.getOwnPropertyDescriptor(obj, key) // 返回对象的描述
   if (property && property.configurable === false) {
     return
   }

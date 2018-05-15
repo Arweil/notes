@@ -17,6 +17,7 @@ type PropOptions = {
   validator: ?Function
 };
 
+// 验证props
 export function validateProp (
   key: string,
   propOptions: Object,
@@ -35,6 +36,7 @@ export function validateProp (
     }
   }
   // check default value
+  // 如果props是undefined，那么会取该key的默认值value，对value进行observe
   if (value === undefined) {
     value = getPropDefaultValue(vm, prop, key)
     // since the default value is a fresh copy,
@@ -53,6 +55,7 @@ export function validateProp (
 /**
  * Get the default value of a prop.
  */
+// 从props中获取default默认值并且返回
 function getPropDefaultValue (vm: ?Component, prop: PropOptions, key: string): any {
   // no default, return undefined
   if (!hasOwn(prop, 'default')) {
@@ -86,6 +89,7 @@ function getPropDefaultValue (vm: ?Component, prop: PropOptions, key: string): a
 /**
  * Assert whether a prop is valid.
  */
+// 验证props的可用性
 function assertProp (
   prop: PropOptions,
   name: string,

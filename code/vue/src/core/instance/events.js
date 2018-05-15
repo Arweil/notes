@@ -42,6 +42,7 @@ export function updateComponentListeners (
   updateListeners(listeners, oldListeners || {}, add, remove, vm)
 }
 
+// 为Vue创建原型方法 $on $once $off $emit
 export function eventsMixin (Vue: Class<Component>) {
   const hookRE = /^hook:/
   // 把用$on监听的事件加入到vm._events中

@@ -69,8 +69,10 @@ function checkOptionType (vm: Component, name: string) {
   }
 }
 
+// 对props进行初始化，验证，defineReactive
 function initProps (vm: Component, propsOptions: Object) {
   const propsData = vm.$options.propsData || {}
+  // 创建实例的_props属性
   const props = vm._props = {}
   // cache prop keys so that future props updates can iterate using Array
   // instead of dynamic object key enumeration.
@@ -82,6 +84,7 @@ function initProps (vm: Component, propsOptions: Object) {
     keys.push(key)
     const value = validateProp(key, propsOptions, propsData, vm)
     /* istanbul ignore else */
+    // 为vm._props添加 propsOptions
     if (process.env.NODE_ENV !== 'production') {
       if (isReservedAttribute(key) || config.isReservedAttr(key)) {
         warn(
@@ -133,6 +136,7 @@ function initData (vm: Component) {
   let i = keys.length
   while (i--) {
     const key = keys[i]
+    // 检查methods中是否存在当前key
     if (process.env.NODE_ENV !== 'production') {
       if (methods && hasOwn(methods, key)) {
         warn(
@@ -141,13 +145,14 @@ function initData (vm: Component) {
         )
       }
     }
+    // 检查props中是否存在当前key
     if (props && hasOwn(props, key)) {
       process.env.NODE_ENV !== 'production' && warn(
         `The data property "${key}" is already declared as a prop. ` +
         `Use prop default value instead.`,
         vm
       )
-    } else if (!isReserved(key)) {
+    } else if (!isReserved(key)) { // 如果key不是以$ 或者 _开头，那么添加到vm._data中
       proxy(vm, `_data`, key)
     }
   }
@@ -155,6 +160,7 @@ function initData (vm: Component) {
   observe(data, true /* asRootData */)
 }
 
+// 为data绑定this为Vue实例，返回data值
 function getData (data: Function, vm: Component): any {
   try {
     return data.call(vm)
@@ -166,11 +172,13 @@ function getData (data: Function, vm: Component): any {
 
 const computedWatcherOptions = { lazy: true }
 
+// TODO:如何进行依赖收集
 function initComputed (vm: Component, computed: Object) {
   process.env.NODE_ENV !== 'production' && checkOptionType(vm, 'computed')
   const watchers = vm._computedWatchers = Object.create(null)
 
   for (const key in computed) {
+    // 检查computed 可用性
     const userDef = computed[key]
     const getter = typeof userDef === 'function' ? userDef : userDef.get
     if (process.env.NODE_ENV !== 'production' && getter == null) {
@@ -180,6 +188,7 @@ function initComputed (vm: Component, computed: Object) {
       )
     }
     // create internal watcher for the computed property.
+    // 为computed创建内部的watch (vm._computedWatchers)
     watchers[key] = new Watcher(vm, getter || noop, noop, computedWatcherOptions)
 
     // component-defined computed properties are already defined on the
@@ -197,6 +206,7 @@ function initComputed (vm: Component, computed: Object) {
   }
 }
 
+// 把computed中的方法添加到Vue实例中
 export function defineComputed (target: any, key: string, userDef: Object | Function) {
   if (typeof userDef === 'function') {
     sharedPropertyDefinition.get = createComputedGetter(key)
@@ -223,6 +233,7 @@ export function defineComputed (target: any, key: string, userDef: Object | Func
   Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 
+// 创建computed的get方法
 function createComputedGetter (key) {
   return function computedGetter () {
     const watcher = this._computedWatchers && this._computedWatchers[key]
@@ -238,6 +249,7 @@ function createComputedGetter (key) {
   }
 }
 
+// 把method中的方法添加到Vue实例中，并为这些方法绑定this为Vue实例
 function initMethods (vm: Component, methods: Object) {
   process.env.NODE_ENV !== 'production' && checkOptionType(vm, 'methods')
   const props = vm.$options.props
@@ -291,6 +303,9 @@ function createWatcher (
   return vm.$watch(keyOrFn, handler, options)
 }
 
+// 为Vue创建
+// 原型方法 $set $delete $watch
+// 原型属性 $data $props
 export function stateMixin (Vue: Class<Component>) {
   // flow somehow has problems with directly declared definition object
   // when using Object.defineProperty, so we have to procedurally build up

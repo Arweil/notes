@@ -63,6 +63,8 @@ export function initRender (vm: Component) {
   }
 }
 
+// 创建Vue实例方法 $nextTick _render
+// 初始化 render helpers 并添加到vue原型中
 export function renderMixin (Vue: Class<Component>) {
   Vue.prototype.$nextTick = function (fn: Function) {
     return nextTick(fn, this)
