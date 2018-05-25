@@ -116,6 +116,7 @@ function initProps (vm: Component, propsOptions: Object) {
   observerState.shouldConvert = true
 }
 
+// 为Data对象添加__ob__
 function initData (vm: Component) {
   let data = vm.$options.data
   data = vm._data = typeof data === 'function'

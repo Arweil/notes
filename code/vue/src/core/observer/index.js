@@ -106,7 +106,7 @@ function copyAugment (target: Object, src: Object, keys: Array<string>) {
  * returns the new observer if successfully observed,
  * or the existing observer if the value already has one.
  */
-// 给value创建obsever实例，并返回实例
+// 给value创建obsever实例，并返回实例，只会给obj创建__ob__属性
 export function observe (value: any, asRootData: ?boolean): Observer | void {
   if (!isObject(value)) {
     return
@@ -132,6 +132,7 @@ export function observe (value: any, asRootData: ?boolean): Observer | void {
 /**
  * Define a reactive property on an Object.
  */
+// 每个可响应的对象都对应一个dep
 export function defineReactive (
   obj: Object,
   key: string,
@@ -157,7 +158,8 @@ export function defineReactive (
     get: function reactiveGetter () {
       const value = getter ? getter.call(obj) : val
       // 在实例化Watcher对象时，会把实例化的watcher对象作为Dep.target的值
-      // 通过调用getter方法，会触发依赖属性的此get回调，进行依赖收集，把watcher添加到dep.subs中
+      // 通过调用getter方法，会触发依赖属性的此get回调，进行依赖收集，
+      // 把当前对象的dep添加到Dep.targer对应的watcher中，把watcher添加到dep.subs中
       // 如果重新设置依赖属性的值会触发set回调中的notify方法，调用watcher中的run方法
       // PS: 这个只会在实例化Watcher对象时收集依赖。
       if (Dep.target) {

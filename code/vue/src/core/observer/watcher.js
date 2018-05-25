@@ -122,6 +122,8 @@ export default class Watcher {
   /**
    * Add a dependency to this directive.
    */
+  // 为Dep.target中的watcher对象添加 newDepIds 和 newDeps
+  // 并且为dep中的subs添加watcher
   addDep (dep: Dep) {
     const id = dep.id
     if (!this.newDepIds.has(id)) {

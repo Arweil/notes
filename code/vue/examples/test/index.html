@@ -30,11 +30,15 @@
           console.log(msg)
         }
       },
+      watch: {
+        msg: function (val, oldVal) {
+          console.log(`${val} - ${oldVal}`)
+        }
+      },
       mounted () {
         // this.info.name = 'fuck'
         // this.info = { name: 'aaa' }
         this.arr.push('1')
-        console.log(this.arr)
 
         setTimeout(() => {
           // this.info.name = 'abc'
