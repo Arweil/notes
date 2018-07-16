@@ -70,7 +70,7 @@ export function renderMixin (Vue: Class<Component>) {
     return nextTick(fn, this)
   }
 
-  // 通过vm.$options.render创建vdom
+  // 通过vm.$options.render创建vnode
   Vue.prototype._render = function (): VNode {
     const vm: Component = this
     const {
