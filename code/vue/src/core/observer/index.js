@@ -159,7 +159,7 @@ export function defineReactive (
       const value = getter ? getter.call(obj) : val
       // 在实例化Watcher对象时，会把实例化的watcher对象作为Dep.target的值
       // 通过调用getter方法，会触发依赖属性的此get回调，进行依赖收集，
-      // 把当前对象的dep添加到Dep.targer对应的watcher中，把watcher添加到dep.subs中
+      // 把当前对象的dep添加到Dep.target对应的watcher中，把watcher添加到dep.subs中
       // 如果重新设置依赖属性的值会触发set回调中的notify方法，调用watcher中的run方法
       // PS: 这个只会在实例化Watcher对象时收集依赖。
       if (Dep.target) {

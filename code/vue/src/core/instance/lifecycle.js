@@ -190,6 +190,7 @@ export function mountComponent (
     }
   }
 
+  // 依赖收集，更新组件，begin
   vm._watcher = new Watcher(vm, updateComponent, noop)
   hydrating = false
 
@@ -274,6 +275,7 @@ function isInInactiveTree (vm) {
   return false
 }
 
+// 激活子组件
 export function activateChildComponent (vm: Component, direct?: boolean) {
   if (direct) {
     vm._directInactive = false
@@ -292,6 +294,7 @@ export function activateChildComponent (vm: Component, direct?: boolean) {
   }
 }
 
+// 离开子组件
 export function deactivateChildComponent (vm: Component, direct?: boolean) {
   if (direct) {
     vm._directInactive = true
@@ -308,6 +311,7 @@ export function deactivateChildComponent (vm: Component, direct?: boolean) {
   }
 }
 
+// 执行用户定义的生命周期函数，如果有多个相同函数，依次执行
 export function callHook (vm: Component, hook: string) {
   const handlers = vm.$options[hook]
   if (handlers) {
