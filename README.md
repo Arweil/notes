@@ -14,6 +14,7 @@ ZA
 * [git常用命令](https://github.com/Arweil/notes/issues/12)
 * [面试 - 2018.08](https://github.com/Arweil/notes/issues/9)
 * [JWT原理](https://github.com/Arweil/notes/issues/10)
+* [2018年总结 & 2019年计划](https://github.com/Arweil/notes/issues/13)
 
 海豚厂
 * [2018.03.21](https://github.com/Arweil/notes/issues/2)
