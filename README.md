@@ -10,6 +10,8 @@ ZA
 * [文件下载方案](https://github.com/Arweil/notes/issues/8)
 
 杂
+* [随手记](https://github.com/Arweil/notes/issues/11)
+* [git常用命令](https://github.com/Arweil/notes/issues/12)
 * [面试 - 2018.08](https://github.com/Arweil/notes/issues/9)
 * [JWT原理](https://github.com/Arweil/notes/issues/10)
 
