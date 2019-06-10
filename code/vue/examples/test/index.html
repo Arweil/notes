@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="../../dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p v-on:showMsg="showMsg">{{msg}}</p>
+    <p v-on:click="showName">{{info.name}}</p>
+  </div>
+
+  <script type="text/javascript">
+    var demo = new Vue({
+      el: '#app',
+      data: {
+        msg: 'Hello World',
+        info: {
+          name: 'Milk'
+        },
+        arr: []
+      },
+      methods: {
+        showName () {
+          // console.log(this.info.name);
+          this.$emit('showMsg', 'fuck')
+        },
+        showMsg (msg) {
+          console.log(msg)
+        }
+      },
+      watch: {
+        msg: function (val, oldVal) {
+          console.log(`${val} - ${oldVal}`)
+        }
+      },
+      mounted () {
+        // this.info.name = 'fuck'
+        // this.info = { name: 'aaa' }
+        this.arr.push('1')
+
+        setTimeout(() => {
+          // this.info.name = 'abc'
+          this.msg = '666'
+        }, 1000)
+      }
+    })
+
+    // demo.$on('showMsg', function (msg) {
+    //   console.log(msg)
+    // })
+  </script>
+</body>
+</html>
