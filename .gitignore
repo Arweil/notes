@@ -1,2 +1,12 @@
 .history
-doc/zhongan/*
+
+doc/zhongan_private/*
+doc
+
+code/**/yarn.lock
+code/**/package-lock.json
+
+code/dva
+code/dva-cli
+code/react-redux
+code/redux
