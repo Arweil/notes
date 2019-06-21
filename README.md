@@ -8,6 +8,7 @@
 ## 目录
 ZA
 * [文件下载方案](https://github.com/Arweil/notes/issues/8)
+* [技术分享 - 前端发展史](https://github.com/Arweil/notes/issues/16)
 
 杂
 * [随手记](https://github.com/Arweil/notes/issues/11)
