@@ -319,6 +319,7 @@ const createFiber = function(
   return new FiberNode(tag, pendingProps, key, mode);
 };
 
+// 继承自Component的类具有 isReactComponent 属性
 function shouldConstruct(Component: Function) {
   const prototype = Component.prototype;
   return !!(prototype && prototype.isReactComponent);

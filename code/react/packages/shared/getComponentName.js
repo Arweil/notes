@@ -62,18 +62,18 @@ function getComponentName(type: mixed): string | null {
       return 'ConcurrentMode';
     case REACT_FRAGMENT_TYPE:
       return 'Fragment';
-    case REACT_PORTAL_TYPE:
+    case REACT_PORTAL_TYPE: // https://zh-hans.reactjs.org/docs/portals.html
       return 'Portal';
-    case REACT_PROFILER_TYPE:
+    case REACT_PROFILER_TYPE: // Chrome React组件 Profiler检测性能
       return `Profiler`;
-    case REACT_STRICT_MODE_TYPE:
+    case REACT_STRICT_MODE_TYPE: // https://zh-hans.reactjs.org/docs/strict-mode.html
       return 'StrictMode';
-    case REACT_SUSPENSE_TYPE:
+    case REACT_SUSPENSE_TYPE: // https://zh-hans.reactjs.org/docs/react-api.html#reactsuspense
       return 'Suspense';
   }
   if (typeof type === 'object') {
     switch (type.$$typeof) {
-      case REACT_CONTEXT_TYPE:
+      case REACT_CONTEXT_TYPE: // https://zh-hans.reactjs.org/docs/context.html
         return 'Context.Consumer';
       case REACT_PROVIDER_TYPE:
         return 'Context.Provider';

@@ -4,6 +4,7 @@ doc/zhongan_private/*
 doc
 
 code/**/yarn.lock
+code/react/fixtures/eslint/package.json
 code/**/package-lock.json
 
 code/dva
