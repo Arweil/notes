@@ -9,6 +9,7 @@
 ZA
 * [文件下载方案](https://github.com/Arweil/notes/issues/8)
 * [技术分享 - 前端发展史](https://github.com/Arweil/notes/issues/16)
+* [PDF参数设置](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf#page=5&zoom=auto,-169,394)
 
 杂
 * [随手记](https://github.com/Arweil/notes/issues/11)
