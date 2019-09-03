@@ -22,6 +22,7 @@ ZA
 
 JavaScript模块化
 * [IIFE(自执行匿名函数)](https://github.com/Arweil/notes/issues/14)
+* [webpack模块化](https://github.com/Arweil/notes/issues/17)
 
 海豚厂
 * [2018.03.21](https://github.com/Arweil/notes/issues/2)
