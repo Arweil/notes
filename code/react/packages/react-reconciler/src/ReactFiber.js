@@ -95,9 +95,11 @@ export type Fiber = {|
   // minimize the number of objects created during the initial render.
 
   // Tag identifying the type of fiber.
+  // 组件类型
   tag: WorkTag,
 
   // Unique identifier of this child.
+  // 唯一标识
   key: null | string,
 
   // The value of element.type which is used to preserve the identity during
@@ -136,9 +138,11 @@ export type Fiber = {|
   memoizedProps: any, // The props used to create the output.
 
   // A queue of state updates and callbacks.
+  // 状态更新和回调队列
   updateQueue: UpdateQueue<any> | null,
 
   // The state used to create the output
+  // 被用于创建输出的状态
   memoizedState: any,
 
   // A linked-list of contexts that this fiber depends on

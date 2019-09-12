@@ -19,29 +19,34 @@ const UNIT_SIZE = 10;
 const MAGIC_NUMBER_OFFSET = MAX_SIGNED_31_BIT_INT - 1;
 
 // 1 unit of expiration time represents 10ms.
+// 10ms 为一个到期时间
 export function msToExpirationTime(ms: number): ExpirationTime {
   // Always add an offset so that we don't clash with the magic number for NoWork.
-  return MAGIC_NUMBER_OFFSET - ((ms / UNIT_SIZE) | 0);
+  return MAGIC_NUMBER_OFFSET - ((ms / UNIT_SIZE) | 0); // number | 0 为number取整
 }
 
 export function expirationTimeToMs(expirationTime: ExpirationTime): number {
   return (MAGIC_NUMBER_OFFSET - expirationTime) * UNIT_SIZE;
 }
 
+/**
+ * 数字分组
+ * ex: 当 precision 为 25时, num在0~24中均会返回25, 当num为25~49中均会返回50
+ */
 function ceiling(num: number, precision: number): number {
   return (((num / precision) | 0) + 1) * precision;
 }
 
 function computeExpirationBucket(
   currentTime,
-  expirationInMs,
-  bucketSizeMs,
+  expirationInMs, // 5000
+  bucketSizeMs, // 250
 ): ExpirationTime {
   return (
     MAGIC_NUMBER_OFFSET -
     ceiling(
       MAGIC_NUMBER_OFFSET - currentTime + expirationInMs / UNIT_SIZE,
-      bucketSizeMs / UNIT_SIZE,
+      bucketSizeMs / UNIT_SIZE, // 25
     )
   );
 }

@@ -44,7 +44,7 @@ var currentDidTimeout = false;
 // Pausing the scheduler is useful for debugging.
 var isSchedulerPaused = false;
 
-var currentPriorityLevel = NormalPriority;
+var currentPriorityLevel = NormalPriority; // 当前优先级
 var currentEventStartTime = -1;
 var currentExpirationTime = -1;
 
