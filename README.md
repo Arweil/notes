@@ -8,6 +8,8 @@
 ## 目录
 ZA
 * [文件下载方案](https://github.com/Arweil/notes/issues/8)
+* [技术分享 - 前端发展史](https://github.com/Arweil/notes/issues/16)
+* [PDF参数设置](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf#page=5&zoom=auto,-169,394)
 
 杂
 * [随手记](https://github.com/Arweil/notes/issues/11)
@@ -16,9 +18,11 @@ ZA
 * [JWT原理](https://github.com/Arweil/notes/issues/10)
 * [2018年总结 & 2019年计划](https://github.com/Arweil/notes/issues/13)
 * [MarkDown语法汇总](https://github.com/Arweil/notes/issues/15)
+* [MobX问题汇总](https://github.com/Arweil/notes/issues/17)
 
 JavaScript模块化
 * [IIFE(自执行匿名函数)](https://github.com/Arweil/notes/issues/14)
+* [webpack模块化](https://github.com/Arweil/notes/issues/18)
 
 海豚厂
 * [2018.03.21](https://github.com/Arweil/notes/issues/2)
