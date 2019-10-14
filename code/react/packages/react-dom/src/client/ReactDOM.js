@@ -365,12 +365,13 @@ ReactWork.prototype._onCommit = function(): void {
   }
 };
 
+// 创建React根元素
 function ReactRoot(
   container: DOMContainer,
   isConcurrent: boolean,
   hydrate: boolean,
 ) {
-  const root = createContainer(container, isConcurrent, hydrate);
+  const root = createContainer(container, isConcurrent, hydrate); // 创建 react FiberRoot
   this._internalRoot = root;
 }
 ReactRoot.prototype.render = function(
