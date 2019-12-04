@@ -178,6 +178,7 @@ export function applyDerivedStateFromProps(
   }
 }
 
+// 类组件setState实现
 const classComponentUpdater = {
   isMounted,
   enqueueSetState(inst, payload, callback) {
@@ -494,7 +495,7 @@ function checkClassInstance(workInProgress: Fiber, ctor: any, newProps: any) {
 }
 
 function adoptClassInstance(workInProgress: Fiber, instance: any): void {
-  instance.updater = classComponentUpdater;
+  instance.updater = classComponentUpdater; // 替换实例中的update，而不是通过继承
   workInProgress.stateNode = instance;
   // The instance needs access to the fiber so that it can schedule updates
   setInstance(instance, workInProgress);

@@ -125,7 +125,8 @@ export type Fiber = {|
   return: Fiber | null,
 
   // Singly Linked List Tree Structure.
-  child: Fiber | null,
+  // 单链表树结构
+  child: Fiber | null, // 子元素、子节点
   sibling: Fiber | null,
   index: number,
 
@@ -358,6 +359,7 @@ export function createWorkInProgress(
   pendingProps: any,
   expirationTime: ExpirationTime,
 ): Fiber {
+  // 初始化workInProgress
   let workInProgress = current.alternate;
   if (workInProgress === null) {
     // We use a double buffering pooling technique because we know that we'll
@@ -365,6 +367,7 @@ export function createWorkInProgress(
     // node that we're free to reuse. This is lazily created to avoid allocating
     // extra objects for things that are never updated. It also allow us to
     // reclaim the extra memory if needed.
+    /* 创建一个新的FiberNode对象，并赋值给workInProgress */
     workInProgress = createFiber(
       current.tag,
       pendingProps,

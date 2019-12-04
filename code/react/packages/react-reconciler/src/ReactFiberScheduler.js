@@ -1206,6 +1206,7 @@ function performUnitOfWork(workInProgress: Fiber): Fiber | null {
   return next;
 }
 
+// 循环调用获取组件child，并且执行响应生命周期
 function workLoop(isYieldy) {
   if (!isYieldy) {
     // Flush work without yielding
