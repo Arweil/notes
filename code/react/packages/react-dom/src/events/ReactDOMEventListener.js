@@ -89,6 +89,9 @@ function handleTopLevel(bookKeeping) {
   // It's important that we build the array of ancestors before calling any
   // event handlers, because event handlers can modify the DOM, leading to
   // inconsistencies with ReactMount's node cache. See #1105.
+  // 遍历层次结构，以防存在任何嵌套的组件。 
+  // 在调用任何事件处理程序之前，先构建祖先数组非常重要，
+  // 因为事件处理程序可以修改DOM，从而导致与ReactMount的节点缓存不一致。
   let ancestor = targetInst;
   do {
     if (!ancestor) {
@@ -193,7 +196,9 @@ export function dispatchEvent(
     return;
   }
 
+  // 获取点击的target元素
   const nativeEventTarget = getEventTarget(nativeEvent);
+  // 获取点击元素的FiberNode
   let targetInst = getClosestInstanceFromNode(nativeEventTarget);
   if (
     targetInst !== null &&
@@ -216,6 +221,8 @@ export function dispatchEvent(
   try {
     // Event queue being processed in the same cycle allows
     // `preventDefault`.
+
+    // react-reconciler/ReactFiberScheduler.js
     batchedUpdates(handleTopLevel, bookKeeping);
   } finally {
     releaseTopLevelCallbackBookKeeping(bookKeeping);

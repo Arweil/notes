@@ -14,23 +14,56 @@
 
   <script type="text/babel">
     class Test extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          msg: 'Hello, world!'
+        }
+      }
+
       componentDidMount() {
-        debugger
         console.log(111);
       }
 
       render() {
         return (
-          <h1>Hello, world!</h1>
+          <h1 onClick={this.props.onClick}>{this.state.msg}</h1>
         )
       }
     }
 
+    class TestWrapper extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.onClick1 = this.onClick1.bind(this);
+        this.onClick2 = this.onClick2.bind(this);
+      }
+
+      onClick1() {
+        this.setState({
+          msg: 'Hello, world Clicked!'
+        });
+      }
+
+      onClick2() {
+        console.log('onClick2')
+      }
+
+      render() {
+        return (
+          <React.Fragment>
+            <Test onClick={this.onClick1} />
+            <Test onClick={this.onClick2} />
+            <Test />
+          </React.Fragment>
+        );
+      }
+    }
+
     ReactDOM.render(
-      <React.Fragment>
-        <Test />
-        <Test />
-      </React.Fragment>,
+      <TestWrapper />,
       document.getElementById('root')
     );
   </script>

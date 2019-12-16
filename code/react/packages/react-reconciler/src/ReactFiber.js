@@ -127,7 +127,7 @@ export type Fiber = {|
   // Singly Linked List Tree Structure.
   // 单链表树结构
   child: Fiber | null, // 子元素、子节点
-  sibling: Fiber | null,
+  sibling: Fiber | null, // 兄弟节点
   index: number,
 
   // The ref last used to attach this node.

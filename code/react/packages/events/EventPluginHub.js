@@ -169,6 +169,7 @@ function extractEvents(
     // Not every plugin in the ordering may be loaded at runtime.
     const possiblePlugin: PluginModule<AnyNativeEvent> = plugins[i];
     if (possiblePlugin) {
+      // 拓展事件，根据不同类型的事件进行额外拓展
       const extractedEvents = possiblePlugin.extractEvents(
         topLevelType,
         targetInst,
