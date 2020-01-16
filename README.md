@@ -40,3 +40,6 @@ JavaScript基础知识回顾
 * [Function](https://github.com/Arweil/notes/issues/23)
 * [Object](https://github.com/Arweil/notes/issues/24)
 * [String](https://github.com/Arweil/notes/issues/26)
+
+计算机基础知识
+* [IEEE 754](https://github.com/Arweil/notes/issues/27)
