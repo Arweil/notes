@@ -24,7 +24,7 @@ JavaScript模块化
 * [IIFE(自执行匿名函数)](https://github.com/Arweil/notes/issues/14)
 * [webpack模块化](https://github.com/Arweil/notes/issues/18)
 
-React:
+React(16.8.3):
 * [React events笔记](https://github.com/Arweil/notes/issues/28)
 
 海豚厂
