@@ -48,3 +48,6 @@ JavaScript基础知识回顾
 
 软件设计师
 * [IEEE 754](https://github.com/Arweil/notes/issues/27)
+* [计算机网络概论](https://github.com/Arweil/notes/issues/29)
+* [程序设计语言基础知识](https://github.com/Arweil/notes/issues/31)
+* [网络与信息安全基础知识](https://github.com/Arweil/notes/issues/33)
