@@ -48,12 +48,12 @@ JavaScript基础知识回顾
 * [String](https://github.com/Arweil/notes/issues/26)
 
 软件设计师 - v5
+* [1. 计算机网络概论](https://github.com/Arweil/notes/issues/29)
 * [IEEE 754](https://github.com/Arweil/notes/issues/27)
-* [计算机网络概论](https://github.com/Arweil/notes/issues/29)
-* [程序设计语言基础知识](https://github.com/Arweil/notes/issues/31)
-* [软件工程基础知识](https://github.com/Arweil/notes/issues/37)
-* [结构化开发方法](https://github.com/Arweil/notes/issues/38)
-* [面向对象技术](https://github.com/Arweil/notes/issues/40)
-* [设计模式](https://github.com/Arweil/notes/issues/41)
-* [网络与信息安全基础知识](https://github.com/Arweil/notes/issues/33)
+* [2. 程序设计语言基础知识](https://github.com/Arweil/notes/issues/31)
+* [5. 软件工程基础知识](https://github.com/Arweil/notes/issues/37)
+* [6. 结构化开发方法](https://github.com/Arweil/notes/issues/38)
+* [7. 面向对象技术](https://github.com/Arweil/notes/issues/40)
+* [7,3 设计模式](https://github.com/Arweil/notes/issues/41)
+* [10. 网络与信息安全基础知识](https://github.com/Arweil/notes/issues/33)
 
