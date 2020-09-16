@@ -54,6 +54,6 @@ JavaScript基础知识回顾
 * [5. 软件工程基础知识](https://github.com/Arweil/notes/issues/37)
 * [6. 结构化开发方法](https://github.com/Arweil/notes/issues/38)
 * [7. 面向对象技术](https://github.com/Arweil/notes/issues/40)
-* [7,3 设计模式](https://github.com/Arweil/notes/issues/41)
+* [7.3 设计模式](https://github.com/Arweil/notes/issues/41)
 * [10. 网络与信息安全基础知识](https://github.com/Arweil/notes/issues/33)
 
