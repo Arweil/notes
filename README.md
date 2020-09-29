@@ -51,6 +51,7 @@ JavaScript基础知识回顾
 * [1. 计算机网络概论](https://github.com/Arweil/notes/issues/29)
 * [IEEE 754](https://github.com/Arweil/notes/issues/27)
 * [2. 程序设计语言基础知识](https://github.com/Arweil/notes/issues/31)
+* [3. 数据结构](https://github.com/Arweil/notes/issues/44)
 * [5. 软件工程基础知识](https://github.com/Arweil/notes/issues/37)
 * [6. 结构化开发方法](https://github.com/Arweil/notes/issues/38)
 * [7. 面向对象技术](https://github.com/Arweil/notes/issues/40)
