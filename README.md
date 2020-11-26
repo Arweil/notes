@@ -10,6 +10,9 @@ ZA
 * [文件下载方案](https://github.com/Arweil/notes/issues/8)
 * [技术分享 - 前端发展史](https://github.com/Arweil/notes/issues/16)
 * [PDF参数设置](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf#page=5&zoom=auto,-169,394)
+* [MobX问题汇总](https://github.com/Arweil/notes/issues/17)
+* [Microfrontends（微前端）实践](https://github.com/Arweil/notes/issues/32)
+* [按位操作符](https://github.com/Arweil/notes/issues/34)
 
 杂
 * [随手记](https://github.com/Arweil/notes/issues/11)
@@ -18,11 +21,14 @@ ZA
 * [JWT原理](https://github.com/Arweil/notes/issues/10)
 * [2018年总结 & 2019年计划](https://github.com/Arweil/notes/issues/13)
 * [MarkDown语法汇总](https://github.com/Arweil/notes/issues/15)
-* [MobX问题汇总](https://github.com/Arweil/notes/issues/17)
+* [vi指令说明](https://github.com/Arweil/notes/issues/39)
 
 JavaScript模块化
 * [IIFE(自执行匿名函数)](https://github.com/Arweil/notes/issues/14)
 * [webpack模块化](https://github.com/Arweil/notes/issues/18)
+
+React(16.8.3):
+* [React events笔记](https://github.com/Arweil/notes/issues/28)
 
 海豚厂
 * [2018.03.21](https://github.com/Arweil/notes/issues/2)
@@ -34,3 +40,21 @@ JavaScript模块化
 
 飞牛
 * [2018.03](https://github.com/Arweil/notes/issues/1)
+
+JavaScript基础知识回顾
+* [原型](https://github.com/Arweil/notes/issues/25)
+* [Function](https://github.com/Arweil/notes/issues/23)
+* [Object](https://github.com/Arweil/notes/issues/24)
+* [String](https://github.com/Arweil/notes/issues/26)
+
+软件设计师 - v5
+* [1. 计算机网络概论](https://github.com/Arweil/notes/issues/29)
+* [IEEE 754](https://github.com/Arweil/notes/issues/27)
+* [2. 程序设计语言基础知识](https://github.com/Arweil/notes/issues/31)
+* [3. 数据结构](https://github.com/Arweil/notes/issues/44)
+* [3.1 KMP算法](https://github.com/Arweil/notes/issues/43)
+* [5. 软件工程基础知识](https://github.com/Arweil/notes/issues/37)
+* [6. 结构化开发方法](https://github.com/Arweil/notes/issues/38)
+* [7. 面向对象技术](https://github.com/Arweil/notes/issues/40)
+* [7.3 设计模式](https://github.com/Arweil/notes/issues/41)
+* [10. 网络与信息安全基础知识](https://github.com/Arweil/notes/issues/33)
