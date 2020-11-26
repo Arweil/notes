@@ -7,8 +7,4 @@ code/**/yarn.lock
 code/react/fixtures/eslint/package.json
 code/**/package-lock.json
 
-code/dva
-code/dva-cli
-code/react-redux
-code/redux
-code/react
+code/*
