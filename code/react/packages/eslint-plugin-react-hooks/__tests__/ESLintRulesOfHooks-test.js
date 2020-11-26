@@ -12,15 +12,24 @@ const ReactHooksESLintPlugin = require('eslint-plugin-react-hooks');
 const ReactHooksESLintRule = ReactHooksESLintPlugin.rules['rules-of-hooks'];
 
 ESLintTester.setDefaultConfig({
-  parser: 'babel-eslint',
+  parser: require.resolve('babel-eslint'),
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
   },
 });
 
-const eslintTester = new ESLintTester();
-eslintTester.run('react-hooks', ReactHooksESLintRule, {
+// ***************************************************
+// For easier local testing, you can add to any case:
+// {
+//   skip: true,
+//   --or--
+//   only: true,
+//   ...
+// }
+// ***************************************************
+
+const tests = {
   valid: [
     `
       // Valid because components can use hooks.
@@ -95,8 +104,9 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
       useHook2 = () => { useState(); };
       ({useHook: () => { useState(); }});
       ({useHook() { useState(); }});
-      const {useHook = () => { useState(); }} = {};
+      const {useHook3 = () => { useState(); }} = {};
       ({useHook = () => { useState(); }} = {});
+      Namespace.useHook = () => { useState(); };
     `,
     `
       // Valid because hooks can call hooks.
@@ -133,6 +143,46 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
       }
     `,
     `
+      // Valid because hooks can be used in anonymous arrow-function arguments
+      // to forwardRef.
+      const FancyButton = React.forwardRef((props, ref) => {
+        useHook();
+        return <button {...props} ref={ref} />
+      });
+    `,
+    `
+      // Valid because hooks can be used in anonymous function arguments to
+      // forwardRef.
+      const FancyButton = React.forwardRef(function (props, ref) {
+        useHook();
+        return <button {...props} ref={ref} />
+      });
+    `,
+    `
+      // Valid because hooks can be used in anonymous function arguments to
+      // forwardRef.
+      const FancyButton = forwardRef(function (props, ref) {
+        useHook();
+        return <button {...props} ref={ref} />
+      });
+    `,
+    `
+      // Valid because hooks can be used in anonymous function arguments to
+      // React.memo.
+      const MemoizedFunction = React.memo(props => {
+        useHook();
+        return <button {...props} />
+      });
+    `,
+    `
+      // Valid because hooks can be used in anonymous function arguments to
+      // memo.
+      const MemoizedFunction = memo(function (props) {
+        useHook();
+        return <button {...props} />
+      });
+    `,
+    `
       // Valid because classes can call functions.
       // We don't consider these to be hooks.
       class C {
@@ -143,29 +193,6 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
       }
     `,
     `
-      // Currently valid.
-      // We *could* make this invalid if we want, but it creates false positives
-      // (see the FooStore case).
-      class C {
-        m() {
-          This.useHook();
-          Super.useHook();
-        }
-      }
-    `,
-    `
-      // Valid although we *could* consider these invalid.
-      // But it doesn't bring much benefit since it's an immediate runtime error anyway.
-      // So might as well allow it.
-      Hook.use();
-      Hook._use();
-      Hook.useState();
-      Hook._useState();
-      Hook.use42();
-      Hook.useHook();
-      Hook.use_hook();
-    `,
-    `
       // Valid -- this is a regression test.
       jest.useFakeTimers();
       beforeEach(() => {
@@ -173,73 +200,14 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
       })
     `,
     `
-      // Valid because that's a false positive we've seen quite a bit.
-      // This is a regression test.
-      class Foo extends Component {
-        render() {
-          if (cond) {
-            FooStore.useFeatureFlag();
-          }
-        }
-      }
-    `,
-    `
-      // Currently valid because we found this to be a common pattern
-      // for feature flag checks in existing components.
-      // We *could* make it invalid but that produces quite a few false positives.
-      // Why does it make sense to ignore it? Firstly, because using
-      // hooks in a class would cause a runtime error anyway.
-      // But why don't we care about the same kind of false positive in a functional
-      // component? Because even if it was a false positive, it would be confusing
-      // anyway. So it might make sense to rename a feature flag check in that case.
-      class ClassComponentWithFeatureFlag extends React.Component {
-        render() {
-          if (foo) {
-            useFeatureFlag();
-          }
-        }
-      }
-    `,
-    `
-      // Currently valid because we don't check for hooks in classes.
-      // See ClassComponentWithFeatureFlag for rationale.
-      // We *could* make it invalid if we don't regress that false positive.
-      class ClassComponentWithHook extends React.Component {
-        render() {
-          React.useState();
-        }
-      }
-    `,
-    `
-      // Currently valid.
-      // These are variations capturing the current heuristic--
-      // we only allow hooks in PascalCase, useFoo functions,
-      // or classes (due to common false positives and because they error anyway).
-      // We *could* make some of these invalid.
-      // They probably don't matter much.
-      (class {useHook = () => { useState(); }});
-      (class {useHook() { useState(); }});
-      (class {h = () => { useState(); }});
-      (class {i() { useState(); }});
-    `,
-    `
-      // Currently valid although we *could* consider these invalid.
-      // It doesn't make a lot of difference because it would crash early.
+      // Valid because they're not matching use[A-Z].
+      fooState();
       use();
       _use();
-      useState();
       _useState();
-      use42();
-      useHook();
       use_hook();
-      React.useState();
-    `,
-    `
-      // Regression test for the popular "history" library
-      const {createHistory, useBasename} = require('history-2.1.2');
-      const browserHistory = useBasename(createHistory)({
-        basename: '/',
-      });
+      // also valid because it's not matching the PascalCase namespace
+      jest.useFakeTimer()
     `,
     `
       // Regression test for some internal code.
@@ -253,6 +221,24 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
           }
         });
       }
+    `,
+    `
+      // This is valid because "use"-prefixed functions called in
+      // unnamed function arguments are not assumed to be hooks.
+      React.unknownFunction((foo, bar) => {
+        if (foo) {
+          useNotAHook(bar)
+        }
+      });
+    `,
+    `
+      // This is valid because "use"-prefixed functions called in
+      // unnamed function arguments are not assumed to be hooks.
+      unknownFunction(function(foo, bar) {
+        if (foo) {
+          useNotAHook(bar)
+        }
+      });
     `,
     `
       // Regression test for incorrectly flagged valid code.
@@ -339,6 +325,18 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
         useHook();
       }
     `,
+    `
+      // Valid because the neither the condition nor the loop affect the hook call.
+      function App(props) {
+        const someObject = {propA: true};
+        for (const propName in someObject) {
+          if (propName === true) {
+          } else {
+          }
+        }
+        const [myState, setMyState] = useState(null);
+      }
+    `,
   ],
   invalid: [
     {
@@ -352,6 +350,59 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
         }
       `,
       errors: [conditionalError('useConditionalHook')],
+    },
+    {
+      code: `
+        Hook.use();
+        Hook._use();
+        Hook.useState();
+        Hook._useState();
+        Hook.use42();
+        Hook.useHook();
+        Hook.use_hook();
+      `,
+      errors: [
+        topLevelError('Hook.useState'),
+        topLevelError('Hook.use42'),
+        topLevelError('Hook.useHook'),
+      ],
+    },
+    {
+      code: `
+        class C {
+          m() {
+            This.useHook();
+            Super.useHook();
+          }
+        }
+      `,
+      errors: [classError('This.useHook'), classError('Super.useHook')],
+    },
+    {
+      code: `
+        // This is a false positive (it's valid) that unfortunately 
+        // we cannot avoid. Prefer to rename it to not start with "use"
+        class Foo extends Component {
+          render() {
+            if (cond) {
+              FooStore.useFeatureFlag();
+            }
+          }
+        }
+      `,
+      errors: [classError('FooStore.useFeatureFlag')],
+    },
+    {
+      code: `
+        // Invalid because it's dangerous and might not warn otherwise.
+        // This *must* be invalid.
+        function ComponentWithConditionalHook() {
+          if (cond) {
+            Namespace.useConditionalHook();
+          }
+        }
+      `,
+      errors: [conditionalError('Namespace.useConditionalHook')],
     },
     {
       code: `
@@ -426,6 +477,32 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
             });
           }
         }
+      `,
+      errors: [genericError('useHookInsideCallback')],
+    },
+    {
+      code: `
+        // Invalid because it's a common misunderstanding.
+        // We *could* make it valid but the runtime error could be confusing.
+        const ComponentWithHookInsideCallback = React.forwardRef((props, ref) => {
+          useEffect(() => {
+            useHookInsideCallback();
+          });
+          return <button {...props} ref={ref} />
+        });
+      `,
+      errors: [genericError('useHookInsideCallback')],
+    },
+    {
+      code: `
+        // Invalid because it's a common misunderstanding.
+        // We *could* make it valid but the runtime error could be confusing.
+        const ComponentWithHookInsideCallback = React.memo(props => {
+          useEffect(() => {
+            useHookInsideCallback();
+          });
+          return <button {...props} />
+        });
       `,
       errors: [genericError('useHookInsideCallback')],
     },
@@ -548,14 +625,7 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
           }
         }
       `,
-      errors: [
-        loopError('useHook1'),
-
-        // NOTE: Small imprecision in error reporting due to caching means we
-        // have a conditional error here instead of a loop error. However,
-        // we will always get an error so this is acceptable.
-        conditionalError('useHook2', true),
-      ],
+      errors: [loopError('useHook1'), loopError('useHook2', true)],
     },
     {
       code: `
@@ -669,8 +739,156 @@ eslintTester.run('react-hooks', ReactHooksESLintRule, {
         conditionalError('useState'),
       ],
     },
+    {
+      code: `
+        // Invalid because it's dangerous and might not warn otherwise.
+        // This *must* be invalid.
+        function useHook({ bar }) {
+          let foo1 = bar && useState();
+          let foo2 = bar || useState();
+          let foo3 = bar ?? useState();
+        }
+      `,
+      errors: [
+        conditionalError('useState'),
+        conditionalError('useState'),
+        conditionalError('useState'),
+      ],
+    },
+    {
+      code: `
+        // Invalid because it's dangerous and might not warn otherwise.
+        // This *must* be invalid.
+        const FancyButton = React.forwardRef((props, ref) => {
+          if (props.fancy) {
+            useCustomHook();
+          }
+          return <button ref={ref}>{props.children}</button>;
+        });
+      `,
+      errors: [conditionalError('useCustomHook')],
+    },
+    {
+      code: `
+        // Invalid because it's dangerous and might not warn otherwise.
+        // This *must* be invalid.
+        const FancyButton = forwardRef(function(props, ref) {
+          if (props.fancy) {
+            useCustomHook();
+          }
+          return <button ref={ref}>{props.children}</button>;
+        });
+      `,
+      errors: [conditionalError('useCustomHook')],
+    },
+    {
+      code: `
+        // Invalid because it's dangerous and might not warn otherwise.
+        // This *must* be invalid.
+        const MemoizedButton = memo(function(props) {
+          if (props.fancy) {
+            useCustomHook();
+          }
+          return <button>{props.children}</button>;
+        });
+      `,
+      errors: [conditionalError('useCustomHook')],
+    },
+    {
+      code: `
+        // This is invalid because "use"-prefixed functions used in named
+        // functions are assumed to be hooks.
+        React.unknownFunction(function notAComponent(foo, bar) {
+          useProbablyAHook(bar)
+        });
+      `,
+      errors: [functionError('useProbablyAHook', 'notAComponent')],
+    },
+    {
+      code: `
+        // Invalid because it's dangerous.
+        // Normally, this would crash, but not if you use inline requires.
+        // This *must* be invalid.
+        // It's expected to have some false positives, but arguably
+        // they are confusing anyway due to the use*() convention
+        // already being associated with Hooks.
+        useState();
+        if (foo) {
+          const foo = React.useCallback(() => {});
+        }
+        useCustomHook();
+      `,
+      errors: [
+        topLevelError('useState'),
+        topLevelError('React.useCallback'),
+        topLevelError('useCustomHook'),
+      ],
+    },
+    {
+      code: `
+        // Technically this is a false positive.
+        // We *could* make it valid (and it used to be).
+        //
+        // However, top-level Hook-like calls can be very dangerous
+        // in environments with inline requires because they can mask
+        // the runtime error by accident.
+        // So we prefer to disallow it despite the false positive.
+
+        const {createHistory, useBasename} = require('history-2.1.2');
+        const browserHistory = useBasename(createHistory)({
+          basename: '/',
+        });
+      `,
+      errors: [topLevelError('useBasename')],
+    },
+    {
+      code: `
+        class ClassComponentWithFeatureFlag extends React.Component {
+          render() {
+            if (foo) {
+              useFeatureFlag();
+            }
+          }
+        }
+      `,
+      errors: [classError('useFeatureFlag')],
+    },
+    {
+      code: `
+        class ClassComponentWithHook extends React.Component {
+          render() {
+            React.useState();
+          }
+        }
+      `,
+      errors: [classError('React.useState')],
+    },
+    {
+      code: `
+        (class {useHook = () => { useState(); }});
+      `,
+      errors: [classError('useState')],
+    },
+    {
+      code: `
+        (class {useHook() { useState(); }});
+      `,
+      errors: [classError('useState')],
+    },
+    {
+      code: `
+        (class {h = () => { useState(); }});
+      `,
+      errors: [classError('useState')],
+    },
+    {
+      code: `
+        (class {i() { useState(); }});
+      `,
+      errors: [classError('useState')],
+    },
   ],
-});
+};
 
 function conditionalError(hook, hasPreviousFinalizer = false) {
   return {
@@ -695,8 +913,9 @@ function loopError(hook) {
 function functionError(hook, fn) {
   return {
     message:
-      `React Hook "${hook}" is called in function "${fn}" which is neither ` +
-      'a React function component or a custom React Hook function.',
+      `React Hook "${hook}" is called in function "${fn}" that is neither ` +
+      'a React function component nor a custom React Hook function.' +
+      ' React component names must start with an uppercase letter.',
   };
 }
 
@@ -708,3 +927,51 @@ function genericError(hook) {
       'Hook function.',
   };
 }
+
+function topLevelError(hook) {
+  return {
+    message:
+      `React Hook "${hook}" cannot be called at the top level. React Hooks ` +
+      'must be called in a React function component or a custom React ' +
+      'Hook function.',
+  };
+}
+
+function classError(hook) {
+  return {
+    message:
+      `React Hook "${hook}" cannot be called in a class component. React Hooks ` +
+      'must be called in a React function component or a custom React ' +
+      'Hook function.',
+  };
+}
+
+// For easier local testing
+if (!process.env.CI) {
+  let only = [];
+  let skipped = [];
+  [...tests.valid, ...tests.invalid].forEach(t => {
+    if (t.skip) {
+      delete t.skip;
+      skipped.push(t);
+    }
+    if (t.only) {
+      delete t.only;
+      only.push(t);
+    }
+  });
+  const predicate = t => {
+    if (only.length > 0) {
+      return only.indexOf(t) !== -1;
+    }
+    if (skipped.length > 0) {
+      return skipped.indexOf(t) === -1;
+    }
+    return true;
+  };
+  tests.valid = tests.valid.filter(predicate);
+  tests.invalid = tests.invalid.filter(predicate);
+}
+
+const eslintTester = new ESLintTester();
+eslintTester.run('react-hooks', ReactHooksESLintRule, tests);

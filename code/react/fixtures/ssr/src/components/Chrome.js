@@ -26,7 +26,13 @@ export default class Chrome extends Component {
           <Theme.Provider value={this.state.theme}>
             {this.props.children}
             <div>
-              <ThemeToggleButton onChange={theme => this.setState({theme})} />
+              <ThemeToggleButton
+                onChange={theme => {
+                  React.startTransition(() => {
+                    this.setState({theme});
+                  });
+                }}
+              />
             </div>
           </Theme.Provider>
           <script

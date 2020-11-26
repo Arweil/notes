@@ -14,6 +14,7 @@ const ReactDOMServerIntegrationUtils = require('./utils/ReactDOMServerIntegratio
 let React;
 let ReactDOM;
 let ReactDOMServer;
+let ReactTestUtils;
 
 function initModules() {
   // Reset warning cache.
@@ -21,11 +22,13 @@ function initModules() {
   React = require('react');
   ReactDOM = require('react-dom');
   ReactDOMServer = require('react-dom/server');
+  ReactTestUtils = require('react-dom/test-utils');
 
   // Make them available to the helpers.
   return {
     ReactDOM,
     ReactDOMServer,
+    ReactTestUtils,
   };
 }
 
@@ -267,12 +270,12 @@ describe('ReactDOMServerIntegration', () => {
                   </Theme.Provider>
                   <Language.Consumer>
                     {language => (
-                      <React.Fragment>
+                      <>
                         <Theme.Consumer>
                           {theme => <div id="theme3">{theme}</div>}
                         </Theme.Consumer>
                         <div id="language2">{language}</div>
-                      </React.Fragment>
+                      </>
                     )}
                   </Language.Consumer>
                 </Theme.Provider>
@@ -284,7 +287,7 @@ describe('ReactDOMServerIntegration', () => {
           </Language.Consumer>
         </div>
       );
-      let e = await render(<App />);
+      const e = await render(<App />);
       expect(e.querySelector('#theme1').textContent).toBe('dark');
       expect(e.querySelector('#theme2').textContent).toBe('light');
       expect(e.querySelector('#theme3').textContent).toBe('blue');
@@ -439,11 +442,11 @@ describe('ReactDOMServerIntegration', () => {
         </CurrentIndex.Provider>
       );
 
-      let streams = [];
+      const streams = [];
 
       // Test with more than 32 streams to test that growing the thread count
       // works properly.
-      let streamCount = 34;
+      const streamCount = 34;
 
       for (let i = 0; i < streamCount; i++) {
         streams[i] = ReactDOMServer.renderToNodeStream(

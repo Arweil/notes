@@ -7,7 +7,14 @@
  * @flow
  */
 
-import {unstable_scheduleCallback as scheduleCallback} from 'scheduler';
+import * as Scheduler from 'scheduler';
+
+// Intentionally not named imports because Rollup would
+// use dynamic dispatch for CommonJS interop named imports.
+const {
+  unstable_scheduleCallback: scheduleCallback,
+  unstable_IdlePriority: IdlePriority,
+} = Scheduler;
 
 type Entry<T> = {|
   value: T,
@@ -30,7 +37,7 @@ export function createLRU<T>(limit: number) {
       // The cache size exceeds the limit. Schedule a callback to delete the
       // least recently used entries.
       cleanUpIsScheduled = true;
-      scheduleCallback(cleanUp);
+      scheduleCallback(IdlePriority, cleanUp);
     }
   }
 
@@ -70,7 +77,7 @@ export function createLRU<T>(limit: number) {
     }
   }
 
-  function add(value: T, onDelete: () => mixed): Entry<T> {
+  function add(value: Object, onDelete: () => mixed): Entry<Object> {
     const entry = {
       value,
       onDelete,

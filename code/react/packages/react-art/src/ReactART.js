@@ -5,13 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
+import * as React from 'react';
 import ReactVersion from 'shared/ReactVersion';
+import {LegacyRoot} from 'react-reconciler/src/ReactRootTags';
 import {
   createContainer,
   updateContainer,
   injectIntoDevTools,
-} from 'react-reconciler/inline.art';
+} from 'react-reconciler/src/ReactFiberReconciler';
 import Transform from 'art/core/transform';
 import Mode from 'art/modes/current';
 import FastNoSideEffects from 'art/modes/fast-noSideEffects';
@@ -65,7 +66,7 @@ class Surface extends React.Component {
 
     this._surface = Mode.Surface(+width, +height, this._tagRef);
 
-    this._mountNode = createContainer(this._surface);
+    this._mountNode = createContainer(this._surface, LegacyRoot, false, null);
     updateContainer(this.props.children, this._mountNode, this);
   }
 

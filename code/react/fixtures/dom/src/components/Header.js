@@ -1,5 +1,6 @@
 import {parse, stringify} from 'query-string';
-import getVersionTags from '../tags';
+import VersionPicker from './VersionPicker';
+
 const React = window.React;
 
 class Header extends React.Component {
@@ -9,18 +10,12 @@ class Header extends React.Component {
     const version = query.version || 'local';
     const production = query.production || false;
     const versions = [version];
+
     this.state = {version, versions, production};
   }
-  componentWillMount() {
-    getVersionTags().then(tags => {
-      let versions = tags.map(tag => tag.name.slice(1));
-      versions = [`local`, ...versions];
-      this.setState({versions});
-    });
-  }
-  handleVersionChange(event) {
+  handleVersionChange(version) {
     const query = parse(window.location.search);
-    query.version = event.target.value;
+    query.version = version;
     if (query.version === 'local') {
       delete query.version;
     }
@@ -48,7 +43,10 @@ class Header extends React.Component {
               width="20"
               height="20"
             />
-            <a href="/">DOM Test Fixtures (v{React.version})</a>
+            <a href="/">
+              DOM Test Fixtures (v
+              {React.version})
+            </a>
           </span>
 
           <div className="header-controls">
@@ -73,8 +71,10 @@ class Header extends React.Component {
                 <option value="/text-inputs">Text Inputs</option>
                 <option value="/number-inputs">Number Input</option>
                 <option value="/password-inputs">Password Input</option>
+                <option value="/email-inputs">Email Input</option>
                 <option value="/selects">Selects</option>
                 <option value="/textareas">Textareas</option>
+                <option value="/progress">Progress</option>
                 <option value="/input-change-events">
                   Input change events
                 </option>
@@ -88,19 +88,17 @@ class Header extends React.Component {
                 <option value="/mouse-events">Mouse Events</option>
                 <option value="/selection-events">Selection Events</option>
                 <option value="/suspense">Suspense</option>
+                <option value="/form-state">Form State</option>
               </select>
             </label>
-            <label htmlFor="react_version">
+            <label htmlFor="global_version">
               <span className="sr-only">Select a version to test</span>
-              <select
-                value={this.state.version}
-                onChange={this.handleVersionChange}>
-                {this.state.versions.map(version => (
-                  <option key={version} value={version}>
-                    {version}
-                  </option>
-                ))}
-              </select>
+              <VersionPicker
+                id="global_version"
+                name="global_version"
+                version={this.state.version}
+                onChange={this.handleVersionChange}
+              />
             </label>
           </div>
         </div>

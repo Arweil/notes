@@ -32,8 +32,8 @@ describe('ReactDOMHooks', () => {
   });
 
   it('can ReactDOM.render() from useEffect', () => {
-    let container2 = document.createElement('div');
-    let container3 = document.createElement('div');
+    const container2 = document.createElement('div');
+    const container3 = document.createElement('div');
 
     function Example1({n}) {
       React.useEffect(() => {
@@ -57,7 +57,7 @@ describe('ReactDOMHooks', () => {
     expect(container.textContent).toBe('1');
     expect(container2.textContent).toBe('');
     expect(container3.textContent).toBe('');
-    Scheduler.flushAll();
+    Scheduler.unstable_flushAll();
     expect(container.textContent).toBe('1');
     expect(container2.textContent).toBe('2');
     expect(container3.textContent).toBe('3');
@@ -66,46 +66,10 @@ describe('ReactDOMHooks', () => {
     expect(container.textContent).toBe('2');
     expect(container2.textContent).toBe('2'); // Not flushed yet
     expect(container3.textContent).toBe('3'); // Not flushed yet
-    Scheduler.flushAll();
+    Scheduler.unstable_flushAll();
     expect(container.textContent).toBe('2');
     expect(container2.textContent).toBe('4');
     expect(container3.textContent).toBe('6');
-  });
-
-  it('can batch synchronous work inside effects with other work', () => {
-    let otherContainer = document.createElement('div');
-
-    let calledA = false;
-    function A() {
-      calledA = true;
-      return 'A';
-    }
-
-    let calledB = false;
-    function B() {
-      calledB = true;
-      return 'B';
-    }
-
-    let _set;
-    function Foo() {
-      _set = React.useState(0)[1];
-      React.useEffect(() => {
-        ReactDOM.render(<A />, otherContainer);
-      });
-      return null;
-    }
-
-    ReactDOM.render(<Foo />, container);
-    ReactDOM.unstable_batchedUpdates(() => {
-      _set(0); // Forces the effect to be flushed
-      expect(otherContainer.textContent).toBe('');
-      ReactDOM.render(<B />, otherContainer);
-      expect(otherContainer.textContent).toBe('');
-    });
-    expect(otherContainer.textContent).toBe('B');
-    expect(calledA).toBe(false); // It was in a batch
-    expect(calledB).toBe(true);
   });
 
   it('should not bail out when an update is scheduled from within an event handler', () => {
@@ -118,10 +82,10 @@ describe('ReactDOMHooks', () => {
       });
 
       return (
-        <React.Fragment>
+        <>
           <input ref={inputRef} onInput={handleInput} />
           <label ref={labelRef}>{text}</label>
-        </React.Fragment>
+        </>
       );
     };
 
@@ -141,7 +105,8 @@ describe('ReactDOMHooks', () => {
     expect(labelRef.current.innerHTML).toBe('abc');
   });
 
-  it('should not bail out when an update is scheduled from within an event handler in ConcurrentMode', () => {
+  // @gate experimental
+  it('should not bail out when an update is scheduled from within an event handler in Concurrent Mode', () => {
     const {createRef, useCallback, useState} = React;
 
     const Example = ({inputRef, labelRef}) => {
@@ -151,10 +116,10 @@ describe('ReactDOMHooks', () => {
       });
 
       return (
-        <React.Fragment>
+        <>
           <input ref={inputRef} onInput={handleInput} />
           <label ref={labelRef}>{text}</label>
-        </React.Fragment>
+        </>
       );
     };
 
@@ -162,20 +127,16 @@ describe('ReactDOMHooks', () => {
     const labelRef = createRef();
 
     const root = ReactDOM.unstable_createRoot(container);
-    root.render(
-      <React.unstable_ConcurrentMode>
-        <Example inputRef={inputRef} labelRef={labelRef} />
-      </React.unstable_ConcurrentMode>,
-    );
+    root.render(<Example inputRef={inputRef} labelRef={labelRef} />);
 
-    Scheduler.flushAll();
+    Scheduler.unstable_flushAll();
 
     inputRef.current.value = 'abc';
     inputRef.current.dispatchEvent(
       new Event('input', {bubbles: true, cancelable: true}),
     );
 
-    Scheduler.flushAll();
+    Scheduler.unstable_flushAll();
 
     expect(labelRef.current.innerHTML).toBe('abc');
   });
