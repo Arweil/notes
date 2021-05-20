@@ -14,6 +14,9 @@ ZA
 * [Microfrontends（微前端）实践](https://github.com/Arweil/notes/issues/32)
 * [按位操作符](https://github.com/Arweil/notes/issues/34)
 
+Book
+* [JavaScript 高级程序设计 第四版](https://github.com/Arweil/notes/issues/45)
+
 杂
 * [随手记](https://github.com/Arweil/notes/issues/11)
 * [git常用命令](https://github.com/Arweil/notes/issues/12)
