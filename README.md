@@ -16,6 +16,7 @@ ZA
 
 Book
 * [JavaScript 高级程序设计 第四版](https://github.com/Arweil/notes/issues/45)
+* [Http 图解]()
 
 杂
 * [随手记](https://github.com/Arweil/notes/issues/11)
