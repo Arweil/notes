@@ -26,6 +26,7 @@ Book
 * [2018年总结 & 2019年计划](https://github.com/Arweil/notes/issues/13)
 * [MarkDown语法汇总](https://github.com/Arweil/notes/issues/15)
 * [vi指令说明](https://github.com/Arweil/notes/issues/39)
+* [项目构建与第三方工具](https://github.com/Arweil/notes/issues/56)
 
 JavaScript模块化
 * [IIFE(自执行匿名函数)](https://github.com/Arweil/notes/issues/14)
