@@ -46,12 +46,6 @@ React(16.8.3):
 飞牛
 * [2018.03](https://github.com/Arweil/notes/issues/1)
 
-JavaScript基础知识回顾
-* [原型](https://github.com/Arweil/notes/issues/25)
-* [Function](https://github.com/Arweil/notes/issues/23)
-* [Object](https://github.com/Arweil/notes/issues/24)
-* [String](https://github.com/Arweil/notes/issues/26)
-
 软件设计师 - v5
 * [1. 计算机网络概论](https://github.com/Arweil/notes/issues/29)
 * [IEEE 754](https://github.com/Arweil/notes/issues/27)
