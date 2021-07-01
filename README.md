@@ -6,14 +6,6 @@
 所以先记录一下吧，说不定几年以后看下这段时间记录的东西，会有不同的感觉^_^。
 
 ## 目录
-ZA
-* [文件下载方案](https://github.com/Arweil/notes/issues/8)
-* [技术分享 - 前端发展史](https://github.com/Arweil/notes/issues/16)
-* [PDF参数设置](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf#page=5&zoom=auto,-169,394)
-* [MobX问题汇总](https://github.com/Arweil/notes/issues/17)
-* [Microfrontends（微前端）实践](https://github.com/Arweil/notes/issues/32)
-* [按位操作符](https://github.com/Arweil/notes/issues/34)
-
 Book
 * [JavaScript 高级程序设计 第四版](https://github.com/Arweil/notes/issues/45)
 * [Http 图解]()
@@ -30,6 +22,14 @@ Book
 
 React(16.8.3):
 * [React events笔记](https://github.com/Arweil/notes/issues/28)
+
+ZA
+* [文件下载方案](https://github.com/Arweil/notes/issues/8)
+* [技术分享 - 前端发展史](https://github.com/Arweil/notes/issues/16)
+* [PDF参数设置](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf#page=5&zoom=auto,-169,394)
+* [MobX问题汇总](https://github.com/Arweil/notes/issues/17)
+* [Microfrontends（微前端）实践](https://github.com/Arweil/notes/issues/32)
+* [按位操作符](https://github.com/Arweil/notes/issues/34)
 
 海豚厂
 * [2018.03.21](https://github.com/Arweil/notes/issues/2)
