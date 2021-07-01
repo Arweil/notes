@@ -16,9 +16,10 @@ Book
 * [面试 - 2018.08](https://github.com/Arweil/notes/issues/9)
 * [JWT原理](https://github.com/Arweil/notes/issues/10)
 * [2018年总结 & 2019年计划](https://github.com/Arweil/notes/issues/13)
-* [MarkDown语法汇总](https://github.com/Arweil/notes/issues/15)
-* [vi指令说明](https://github.com/Arweil/notes/issues/39)
 * [项目构建与第三方工具](https://github.com/Arweil/notes/issues/56)
+* [MarkDown语法汇总](https://github.com/Arweil/notes/issues/15)
+* [YAML语法汇总](https://github.com/Arweil/notes/issues/60)
+* [vi指令说明](https://github.com/Arweil/notes/issues/39)
 
 React(16.8.3):
 * [React events笔记](https://github.com/Arweil/notes/issues/28)
