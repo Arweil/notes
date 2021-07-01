@@ -28,10 +28,6 @@ Book
 * [vi指令说明](https://github.com/Arweil/notes/issues/39)
 * [项目构建与第三方工具](https://github.com/Arweil/notes/issues/56)
 
-JavaScript模块化
-* [IIFE(自执行匿名函数)](https://github.com/Arweil/notes/issues/14)
-* [webpack模块化](https://github.com/Arweil/notes/issues/18)
-
 React(16.8.3):
 * [React events笔记](https://github.com/Arweil/notes/issues/28)
 
